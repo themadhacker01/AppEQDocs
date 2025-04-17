@@ -1,0 +1,9 @@
+# Ignore files that store data
+data.json
+chunks.json
+.env
+faiss_chunks.index
+metadata.json
+embedded_chunks.json
+venv/
+__pycache__/
