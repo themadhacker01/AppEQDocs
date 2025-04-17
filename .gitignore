@@ -1,5 +1,5 @@
 # Ignore files that store data
-data.json
+appeq_aricles.json
 chunks.json
 .env
 faiss_chunks.index
