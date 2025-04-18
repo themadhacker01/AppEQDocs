@@ -4,13 +4,21 @@ import time
 import uuid
 from bs4 import BeautifulSoup
 
-BASE_URL = 'https://help.appeq.ai'
-COLLECTION_URL = f'{BASE_URL}/en/collections/4350326-features'
+BASE_URL = 'https://help.appeq.ai/en'
+IGNORE_URLS = [
+    'https://help.appeq.ai/en/collections/4065352-release-notes'
+]
 CHUNK_SIZE = 300
 OVERLAP = 50
 
-def get_article_links():
-    res = requests.get(COLLECTION_URL)
+def get_all_collection_urls(base_url):
+    res = requests.get(base_url)
+    soup = BeautifulSoup(res.text, 'html.parser')
+    links = soup.select('a[data-testid="collection-card-classic"]')
+    return [BASE_URL.rstrip('/') + link['href'] for link in links]
+
+def get_article_links(collection_url):
+    res = requests.get(collection_url)
     soup = BeautifulSoup(res.text, 'html.parser')
 
     # Article links
@@ -62,20 +70,24 @@ def chunk_articles(articles, chunk_size, overlap, filename):
     print(f'✅ Saved {len(chunks)} chunks to {filename}')
 
 def main():
-    articles_content = []
-    urls = get_article_links()
+    all_articles_content = []
+    collection_urls = get_all_collection_urls(base_url=BASE_URL)
 
-    for url in urls:
-        try:
-            data = get_article_content(url)
-            articles_content.append(data)
-            time.sleep(1)  # Polite delay
-        except Exception as e:
-            print(f'❌ Error processing {url}: {e}')
+    for collection_url in collection_urls:
+        print(f'Processing collection: {collection_url}')
+        article_urls = get_article_links(collection_url)
 
-    write_articles_to_file(articles_content)
+        for article_url in article_urls:
+            try:
+                article_content = get_article_content(article_url)
+                all_articles_content.append(article_content)
+                time.sleep(1)  # Polite delay
+            except Exception as e:
+                print(f'Error processing {article_url}: {e}')
 
-    chunk_articles(articles_content, chunk_size=CHUNK_SIZE, overlap=OVERLAP, filename='appeq_chunks.json')
+    write_articles_to_file(all_articles_content)
+
+    chunk_articles(all_articles_content, chunk_size=CHUNK_SIZE, overlap=OVERLAP, filename='appeq_chunks.json')
 
 if __name__ == '__main__':
     main()
