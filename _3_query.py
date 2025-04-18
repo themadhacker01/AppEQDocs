@@ -1,6 +1,7 @@
 import json
 import faiss
 import numpy as np
+import streamlit as st
 import google.generativeai as genai
 
 INDEX_FILE = 'faiss_chunks.index'
