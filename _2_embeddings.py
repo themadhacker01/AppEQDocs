@@ -1,5 +1,6 @@
 import json, faiss
 import numpy as np
+import streamlit as st
 import google.generativeai as genai
 
 # Set the path to the JSON file containing the chunks
