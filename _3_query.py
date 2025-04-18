@@ -1,8 +1,6 @@
 import json
-import os
 import faiss
 import numpy as np
-from dotenv import load_dotenv
 import google.generativeai as genai
 
 INDEX_FILE = 'faiss_chunks.index'
@@ -10,11 +8,8 @@ METADATA_FILE = 'appeq_metadata.json'
 TOP_K = 3
 MODEL_NAME = 'models/gemini-1.5-pro-002'
 
-# Load environment variables from .env
-load_dotenv()
-
 # Set up the API key for Google Generative AI
-api_key = os.getenv('GEMINI_API_KEY')
+api_key = st.secrets['GEMINI_API_KEY']
 genai.configure(api_key=api_key)
 
 # -------------------

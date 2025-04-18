@@ -1,6 +1,5 @@
 import streamlit as st
 import json
-from dotenv import load_dotenv
 import google.generativeai as genai
 
 # Custom functions
@@ -16,7 +15,7 @@ ARTICLES_FILE = 'appeq_articles.json'
 EMBEDDED_FILE = 'embedded_chunks.json'
 TOP_K = 5
 
-# Load environment variables
+# Set up the API key for Google Generative AI
 api_key = st.secrets['GEMINI_API_KEY']
 genai.configure(api_key=api_key)
 

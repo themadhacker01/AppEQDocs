@@ -1,6 +1,5 @@
 import requests
 import json
-import time
 import uuid
 from bs4 import BeautifulSoup
 
@@ -81,7 +80,6 @@ def main():
             try:
                 article_content = get_article_content(article_url)
                 all_articles_content.append(article_content)
-                time.sleep(1)  # Polite delay
             except Exception as e:
                 print(f'Error processing {article_url}: {e}')
 
