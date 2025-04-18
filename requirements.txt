@@ -1,4 +1,4 @@
-altair==5.5.0
+﻿altair==5.5.0
 annotated-types==0.7.0
 attrs==25.3.0
 beautifulsoup4==4.13.4

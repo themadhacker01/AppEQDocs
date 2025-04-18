@@ -1,7 +1,5 @@
 import streamlit as st
-import os
 import json
-import time
 from dotenv import load_dotenv
 import google.generativeai as genai
 
@@ -19,8 +17,7 @@ EMBEDDED_FILE = 'embedded_chunks.json'
 TOP_K = 5
 
 # Load environment variables
-load_dotenv()
-api_key = os.getenv('GEMINI_API_KEY')
+api_key = st.secrets['GEMINI_API_KEY']
 genai.configure(api_key=api_key)
 
 # Session state for control
