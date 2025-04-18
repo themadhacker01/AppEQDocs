@@ -75,6 +75,7 @@ def generate_summary(query, chunks):
         f'\n\nContext:\n{context}'
     )
     init_response = model.generate_content(init_prompt)
+    print('Summary generated.')
 
     return init_response.text
 
