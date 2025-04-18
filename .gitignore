@@ -1,10 +1,4 @@
 # Ignore files that store data
-appeq_articles.json
-appeq_chunks.json
-chunks.json
 .env
-faiss_chunks.index
-appeq_metadata.json
-embedded_chunks.json
 venv/
 __pycache__/
